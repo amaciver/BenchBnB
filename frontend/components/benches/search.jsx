@@ -5,7 +5,7 @@ import BenchIndex from './bench_index';
 
 export const Search = ({benches, fetchBenches}) => (
   <div>
-    <BenchMap />
+    <BenchMap benches={benches}/>
     <BenchIndex benches={benches} fetchBenches={fetchBenches}/>
   </div>
 );
