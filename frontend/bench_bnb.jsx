@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import * as SessionAPIUtil from './util/session_api_util.js';
-import configureStore from './store/store';
 import * as SessionActions from './actions/session_actions';
+import * as BenchActions from './actions/bench_actions';
+
+import configureStore from './store/store';
 import Root from './components/root';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,10 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.store = store;
-    window.receiveCurrentUser = SessionActions.receiveCurrentUser;
-    window.signup = SessionActions.signup;
-    window.login = SessionActions.login;
-    window.logout = SessionActions.logout;
+    // window.receiveCurrentUser = SessionActions.receiveCurrentUser;
+    // window.signup = SessionActions.signup;
+    // window.login = SessionActions.login;
+    // window.logout = SessionActions.logout;
+    window.fetchBenches = BenchActions.fetchBenches;
 
     ReactDOM.render(<Root store={store} />, root);
 });
