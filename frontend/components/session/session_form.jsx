@@ -17,10 +17,22 @@ class SessionForm extends React.Component {
   }
 
   handleSubmit(e) {
-   e.preventDefault();
-   const user = Object.assign({}, this.state);
-    this.props.processForm(user).then(() => this.props.router.push(`/`));
- }
+    e.preventDefault();
+    const user = Object.assign({}, this.state);
+      this.props.processForm(user)
+      .then(() => this.props.router.push(`/`))
+      ;
+  }
+
+  errors() {
+    if (this.props.errors) {
+      return (
+        this.props.errors.map(error => {
+          return (<li className="error" key={error}>{error}</li>);
+        })
+      );
+    }
+  }
 
 
   render() {
@@ -30,10 +42,12 @@ class SessionForm extends React.Component {
     } else {
       formType = 'Sign Up';
     }
+    // debugger;
     return (
       <div>
         <header>{formType}</header>
-        <form>
+        {this.errors()}
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             placeholder="Username"
@@ -44,7 +58,7 @@ class SessionForm extends React.Component {
             placeholder="Password"
             onChange={this.update('password')}
             />
-          <button onClick={this.handleSubmit}>{formType}</button>
+          <button >{formType}</button>
         </form>
       </div>
     );
