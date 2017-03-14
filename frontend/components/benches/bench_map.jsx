@@ -6,6 +6,17 @@ class BenchMap extends React.Component {
     super(props);
   }
 
+  _registerListeners() {
+    google.maps.event.addListener(this.map, 'idle', () => {
+      const { north, south, east, west } = this.map.getBounds().toJSON();
+      const bounds = {
+        northEast: { lat:north, lng: east },
+        southWest: { lat: south, lng: west } };
+        // debugger;
+      this.props.updateFilter("bounds", bounds);
+    });
+  }
+
   componentDidMount() {
    // set the map to show SF
    const mapOptions = {
@@ -21,7 +32,7 @@ class BenchMap extends React.Component {
    if (this.props.benches) {
      benches = Object.keys(this.props.benches).map( id => this.props.benches[id]);
    }
-   debugger;
+   this._registerListeners();
    this.MarkerManager.updateMarkers(benches);
 
  }

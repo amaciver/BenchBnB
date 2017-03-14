@@ -17,13 +17,23 @@ export default class MarkerManager {
       benchId: bench.id
     });
     this.markers.push(marker);
+  }
 
+  _markersToRemove() {
+    const benchIds = this.benches.map( bench => bench.id);
+    return this.markers.filter( marker => !benchIds.includes(marker.benchId));
+  }
+
+  _removeMarker(marker) {
+    const idx = this.markers.indexOf(marker);
+    this.markers[idx].setMap(null);
+    this.markers.splice(idx, 1);
   }
 
 
   updateMarkers(benches) {
     this.benches = benches;
-    console.log("time to update");
     this._benchesToAdd().forEach ( bench => this._createMarkerFromBench(bench));
+    this._markersToRemove().forEach ( marker => this._removeMarker(marker));
   }
 }
